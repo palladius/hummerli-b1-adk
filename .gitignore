@@ -1,0 +1,106 @@
+# =====================================================================
+# Hummerli — PUBLIC repo. NOTHING secret or personal goes in here.
+# Private stuff (sessions, transcripts, evals, audio) lives in:
+#   - gs://hummerli-audio-vault/    (GCS)
+#   - palladius/hummerli-b1-adk-pvt (private companion repo)
+# =====================================================================
+
+# --- 🔐 Secrets & credentials ----------------------------------------
+.env
+.env.*
+!.env.dist
+*.env
+sa.json
+*-sa.json
+*sa-key*.json
+service-account*.json
+credentials*.json
+client_secret*.json
+application_default_credentials.json
+token.json
+*.pem
+*.key
+*.p12
+*.pfx
+.secrets/
+secrets/
+
+# --- 🗣️ Personal data (NEVER public) ----------------------------------
+# Raw audio, transcripts, SRS state, eval reports, telemetry.
+# Public curricula (e.g. Goethe B1 Wortliste) & public eval fixtures are allowed!
+data/
+!data/curricula/
+!data/README.md
+audio/
+sessions/
+transcripts/
+reports/
+telemetry/
+*.ogg
+*.oga
+*.opus
+*.wav
+*.mp3
+*.m4a
+*.flac
+*.webm
+*.pcm
+*.parquet
+*.duckdb
+*.duckdb.wal
+*.sqlite
+*.sqlite3
+*.db
+srs_state*.json
+
+# Note: synthetic/anonymized trajectory evals in tests/evals/ ARE tracked in git!
+# Private real-user eval logs in evals/private/ are ignored:
+evals/private/
+*.private.evalset.json
+
+# --- 🦞 Companion private repo (if cloned/symlinked inside) -----------
+pvt/
+hummerli-b1-adk-pvt/
+
+# --- 🐍 Python --------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# --- 🌐 Node / Astro dashboard ----------------------------------------
+node_modules/
+.astro/
+dashboard/dist/
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# --- 🤖 ADK / agent runtime -------------------------------------------
+.adk/
+adk_sessions/
+*.session.json
+
+# --- 🧰 Editors, OS, logs ---------------------------------------------
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+*.log
+logs/
+tmp/
+.cache/
