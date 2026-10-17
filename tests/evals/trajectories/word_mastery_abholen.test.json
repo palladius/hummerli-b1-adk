@@ -1,0 +1,45 @@
+{
+  "eval_set_id": "word_mastery_abholen",
+  "description": "Verifies that when Riccardo actively uses the target separable verb 'abholen' in a full German sentence, Frau Blücher calls record_word_attempt with quality=5 and used_actively=true.",
+  "profile_id": "riccardo",
+  "turns": [
+    {
+      "turn_id": "turn_1_use_abholen",
+      "is_session_start": false,
+      "query": "Ich muss heute Nachmittag meine Kinder von der Schule abholen.",
+      "expected_tool_use": [
+        {
+          "tool_name": "record_word_attempt",
+          "tool_args": {
+            "profile_id": "riccardo",
+            "lemma": "abholen",
+            "quality": 5,
+            "used_actively": true
+          }
+        }
+      ],
+      "expected_persona": "Frau Leonie Blücher",
+      "expected_language": "de",
+      "reference_keywords": ["Ausgezeichnet", "abholen", "Wiederholung"]
+    },
+    {
+      "turn_id": "turn_2_use_abgeholt_perfekt",
+      "is_session_start": false,
+      "query": "Gestern habe ich meinen Freund pünktlich am Zürcher Hauptbahnhof abgeholt.",
+      "expected_tool_use": [
+        {
+          "tool_name": "record_word_attempt",
+          "tool_args": {
+            "profile_id": "riccardo",
+            "lemma": "abholen",
+            "quality": 5,
+            "used_actively": true
+          }
+        }
+      ],
+      "expected_persona": "Frau Leonie Blücher",
+      "expected_language": "de",
+      "reference_keywords": ["abholen", "7", "Tag"]
+    }
+  ]
+}

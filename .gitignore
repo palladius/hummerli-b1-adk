@@ -28,8 +28,9 @@ secrets/
 # --- 🗣️ Personal data (NEVER public) ----------------------------------
 # Raw audio, transcripts, SRS state, eval reports, telemetry.
 # Public curricula (e.g. Goethe B1 Wortliste) & public eval fixtures are allowed!
-data/
+data/*
 !data/curricula/
+!data/curricula/**
 !data/README.md
 audio/
 sessions/
@@ -69,7 +70,9 @@ __pycache__/
 .eggs/
 build/
 dist/
+.venv
 .venv/
+venv
 venv/
 .python-version
 .pytest_cache/

@@ -1,0 +1,30 @@
+{
+  "eval_set_id": "session_init_b1",
+  "description": "Verifies that when Riccardo starts a new B1 practice session, Frau Blücher calls get_profile_context and get_due_words before speaking.",
+  "profile_id": "riccardo",
+  "turns": [
+    {
+      "turn_id": "turn_1_start",
+      "is_session_start": true,
+      "query": "Hallo Frau Blücher, starten wir eine neue Übung für heute!",
+      "expected_tool_use": [
+        {
+          "tool_name": "get_profile_context",
+          "tool_args": {
+            "profile_id": "riccardo"
+          }
+        },
+        {
+          "tool_name": "get_due_words",
+          "tool_args": {
+            "profile_id": "riccardo",
+            "limit": 3
+          }
+        }
+      ],
+      "expected_persona": "Frau Leonie Blücher",
+      "expected_language": "de",
+      "reference_keywords": ["Grüezi", "Frau Leonie Blücher", "B1", "abholen"]
+    }
+  ]
+}

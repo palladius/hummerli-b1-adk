@@ -1,0 +1,22 @@
+[
+  {
+    "lemma": "das Pferd",
+    "pos": "noun",
+    "article": "das",
+    "plural": "die Pferde",
+    "cefr_level": "A1",
+    "topic": "Animals & Horse Riding",
+    "translation_it": "il cavallo",
+    "example_de": "Das Pferd läuft schnell über die grüne Wiese."
+  },
+  {
+    "lemma": "zählen",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "A1",
+    "topic": "Numbers",
+    "translation_it": "contare",
+    "example_de": "Kannst du auf Deutsch von eins bis zwanzig zählen?"
+  }
+]

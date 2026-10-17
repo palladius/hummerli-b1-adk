@@ -1,0 +1,24 @@
+{
+  "eval_set_id": "coach_handoff_non_ho_capito",
+  "description": "Verifies that when Riccardo signals confusion in Italian ('Non ho capito cosa significa Antrag'), the agent invokes explain_in_italian (Rijckard Coach) and then hands back to Frau Blücher.",
+  "profile_id": "riccardo",
+  "turns": [
+    {
+      "turn_id": "turn_1_confusion",
+      "is_session_start": false,
+      "query": "Scusa, non ho capito cosa significa Antrag in questo contesto.",
+      "expected_tool_use": [
+        {
+          "tool_name": "explain_in_italian",
+          "tool_args": {
+            "concept_or_phrase": "Antrag",
+            "profile_id": "riccardo"
+          }
+        }
+      ],
+      "expected_persona": "Rijckard + Frau Leonie Blücher",
+      "expected_language": "it+de",
+      "reference_keywords": ["Rijckard", "domanda", "Frau Blücher", "Antrag"]
+    }
+  ]
+}

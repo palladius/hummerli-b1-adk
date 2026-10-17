@@ -1,0 +1,22 @@
+[
+  {
+    "lemma": "die Schule",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Schulen",
+    "cefr_level": "A1",
+    "topic": "Primary 3 School",
+    "translation_it": "la scuola",
+    "example_de": "In der Schule lernen wir heute Deutsch, Französisch und Mathematik."
+  },
+  {
+    "lemma": "spielen",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "A1",
+    "topic": "Stories & Drama",
+    "translation_it": "giocare / recitare",
+    "example_de": "Nach der Schule spiele ich gerne Schach mit meinem Bruder."
+  }
+]

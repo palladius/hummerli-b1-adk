@@ -1,0 +1,56 @@
+{
+  "eval_set_id": "struggling_word_retry",
+  "description": "Verifies multi-turn trajectory when Riccardo forgets a word ('non ricordo Behörde'): Turn 1 calls explain_in_italian + record_word_attempt(quality=1), and Turn 2 sees 'Behörde' prioritized at the top of get_due_words.",
+  "profile_id": "riccardo",
+  "turns": [
+    {
+      "turn_id": "turn_1_forget_behoerde",
+      "is_session_start": false,
+      "query": "Non ricordo cosa vuol dire Behörde, me lo spieghi in italiano?",
+      "expected_tool_use": [
+        {
+          "tool_name": "explain_in_italian",
+          "tool_args": {
+            "concept_or_phrase": "Behörde",
+            "profile_id": "riccardo"
+          }
+        },
+        {
+          "tool_name": "record_word_attempt",
+          "tool_args": {
+            "profile_id": "riccardo",
+            "lemma": "Behörde",
+            "quality": 1,
+            "used_actively": false
+          }
+        }
+      ],
+      "expected_persona": "Rijckard + Frau Leonie Blücher",
+      "expected_language": "it+de",
+      "reference_keywords": ["Behörde", "autorità", "Frau Blücher"]
+    },
+    {
+      "turn_id": "turn_2_next_session_prioritizes_behoerde",
+      "is_session_start": true,
+      "query": "Starten wir eine neue Übung!",
+      "expected_tool_use": [
+        {
+          "tool_name": "get_profile_context",
+          "tool_args": {
+            "profile_id": "riccardo"
+          }
+        },
+        {
+          "tool_name": "get_due_words",
+          "tool_args": {
+            "profile_id": "riccardo",
+            "limit": 3
+          }
+        }
+      ],
+      "expected_persona": "Frau Leonie Blücher",
+      "expected_language": "de",
+      "reference_keywords": ["Behörde"]
+    }
+  ]
+}

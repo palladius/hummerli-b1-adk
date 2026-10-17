@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hummerli"
+version = "0.1.0"
+description = "Autonomous ADK German B1 Oral Tutor, Bidirectional Barge-In Engine & Multi-Eval Datalake"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Riccardo Carlesso", email = "palladiusbonton@gmail.com" }
+]
+dependencies = [
+    "google-adk>=1.0.0",
+    "google-genai>=1.0.0",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0.0",
+    "typer>=0.12.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.5.0",
+]
+
+[project.scripts]
+hummerli = "hummerli.cli:app"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-v"
+markers = [
+    "live_eval: marks tests that call live Gemini / ADK APIs (deselect with '-m \"not live_eval\"')",
+]

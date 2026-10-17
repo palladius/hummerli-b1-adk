@@ -1,0 +1,262 @@
+[
+  {
+    "lemma": "abholen",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Alltag & Familie",
+    "translation_it": "andare a prendere / ritirare",
+    "example_de": "Ich muss heute Nachmittag meine Kinder von der Schule abholen."
+  },
+  {
+    "lemma": "Antrag",
+    "pos": "noun",
+    "article": "der",
+    "plural": "die Anträge",
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "domanda / richiesta ufficiale",
+    "example_de": "Ich habe den Antrag auf Einbürgerung bei der Gemeinde eingereicht."
+  },
+  {
+    "lemma": "Einbürgerung",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Einbürgerungen",
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "naturalizzazione",
+    "example_de": "Für die Einbürgerung im Kanton Zürich braucht man das Sprachzertifikat B1."
+  },
+  {
+    "lemma": "Gemeinde",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Gemeinden",
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "comune / municipio",
+    "example_de": "Unsere Gemeinde organisiert jeden Monat einen Informationsabend für Neuzuzüger."
+  },
+  {
+    "lemma": "Behörde",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Behörden",
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "autorità / ufficio pubblico",
+    "example_de": "Die zuständige Behörde prüft alle Unterlagen sehr sorgfältig."
+  },
+  {
+    "lemma": "Gesuch",
+    "pos": "noun",
+    "article": "das",
+    "plural": "die Gesuche",
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "istanza / domanda formale (CH)",
+    "example_de": "Nach der bestandenen FIDE-Prüfung werde ich ein neues Gesuch stellen."
+  },
+  {
+    "lemma": "Abstimmung",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Abstimmungen",
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "votazione / referendum",
+    "example_de": "In der Schweiz finden viermal im Jahr Volksabstimmungen statt."
+  },
+  {
+    "lemma": "beantragen",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "richiedere formalmente / fare domanda",
+    "example_de": "Man kann den neuen Schweizer Pass direkt beim Passbüro beantragen."
+  },
+  {
+    "lemma": "vereinbaren",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Arbeit & Termine",
+    "translation_it": "concordare / fissare (un appuntamento)",
+    "example_de": "Können wir bitte einen neuen Termin für das Gespräch vereinbaren?"
+  },
+  {
+    "lemma": "teilnehmen",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Gesellschaft & Kultur",
+    "translation_it": "partecipare",
+    "example_de": "Ich möchte gerne am lokalen Vereinsleben in unserer Nachbarschaft teilnehmen."
+  },
+  {
+    "lemma": "zustimmen",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "approvare / essere d'accordo",
+    "example_de": "Die Mehrheit der Bürger hat der neuen Vorlage am Sonntag zugestimmt."
+  },
+  {
+    "lemma": "stattfinden",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Gesellschaft & Kultur",
+    "translation_it": "aver luogo / svolgersi",
+    "example_de": "Das Sechseläuten findet jedes Jahr im Frühling in Zürich statt."
+  },
+  {
+    "lemma": "erledigen",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Alltag & Familie",
+    "translation_it": "sbrigare / portare a termine",
+    "example_de": "Am Samstagmorgen muss ich noch einige Einkäufe in der Stadt erledigen."
+  },
+  {
+    "lemma": "sich beschweren",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Wohnen & Nachbarschaft",
+    "translation_it": "lamentarsi / fare reclamo",
+    "example_de": "Der Nachbar hat sich über den Lärm nach zweiundzwanzig Uhr beschwert."
+  },
+  {
+    "lemma": "berücksichtigen",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Arbeit & Termine",
+    "translation_it": "tenere in considerazione",
+    "example_de": "Wir müssen bei der Planung auch die Schulferien der Kinder berücksichtigen."
+  },
+  {
+    "lemma": "umziehen",
+    "pos": "verb",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Wohnen & Nachbarschaft",
+    "translation_it": "traslocare",
+    "example_de": "Als wir in den Kanton Zürich umgezogen sind, mussten wir uns innerhalb von vierzehn Tagen anmelden."
+  },
+  {
+    "lemma": "Unterlagen",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Unterlagen",
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "documenti / pratiche",
+    "example_de": "Bitte bringen Sie alle erforderlichen Unterlagen zum Termin beim Kreisbüro mit."
+  },
+  {
+    "lemma": "Aufenthaltsbewilligung",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Aufenthaltsbewilligungen",
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "permesso di soggiorno",
+    "example_de": "Seit fünf Jahren besitze ich die Niederlassungsbewilligung C."
+  },
+  {
+    "lemma": "Nachbarschaft",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Nachbarschaften",
+    "cefr_level": "B1",
+    "topic": "Wohnen & Nachbarschaft",
+    "translation_it": "vicinato / quartiere",
+    "example_de": "Wir haben ein sehr gutes Verhältnis zu allen Familien in unserer Nachbarschaft."
+  },
+  {
+    "lemma": "Verein",
+    "pos": "noun",
+    "article": "der",
+    "plural": "die Vereine",
+    "cefr_level": "B1",
+    "topic": "Gesellschaft & Kultur",
+    "translation_it": "associazione / club",
+    "example_de": "Mein Sohn spielt jeden Mittwoch im lokalen Sportverein."
+  },
+  {
+    "lemma": "Verbindung",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Verbindungen",
+    "cefr_level": "B1",
+    "topic": "Verkehr & Mobilität",
+    "translation_it": "collegamento / coincidenza",
+    "example_de": "Mit der S-Bahn hat man eine schnelle Verbindung zum Zürcher Hauptbahnhof."
+  },
+  {
+    "lemma": "Verspätung",
+    "pos": "noun",
+    "article": "die",
+    "plural": "die Verspätungen",
+    "cefr_level": "B1",
+    "topic": "Verkehr & Mobilität",
+    "translation_it": "ritardo",
+    "example_de": "Die Züge der SBB haben fast nie Verspätung."
+  },
+  {
+    "lemma": "zuständig",
+    "pos": "adjective",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Zürich & Einbürgerung",
+    "translation_it": "competente / responsabile",
+    "example_de": "Wissen Sie, welches Amt für die Einbürgerung zuständig ist?"
+  },
+  {
+    "lemma": "notwendig",
+    "pos": "adjective",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Arbeit & Termine",
+    "translation_it": "necessario",
+    "example_de": "Für das Gespräch auf der Gemeinde sind gute Deutschkenntnisse notwendig."
+  },
+  {
+    "lemma": "verantwortlich",
+    "pos": "adjective",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Arbeit & Termine",
+    "translation_it": "responsabile",
+    "example_de": "Bei der Arbeit bin ich für die Cloud-Infrastruktur und Zuverlässigkeit verantwortlich."
+  },
+  {
+    "lemma": "ehrenamtlich",
+    "pos": "adjective",
+    "article": null,
+    "plural": null,
+    "cefr_level": "B1",
+    "topic": "Gesellschaft & Kultur",
+    "translation_it": "volontario / onorario",
+    "example_de": "Viele Menschen engagieren sich ehrenamtlich in Schweizer Vereinen."
+  }
+]
