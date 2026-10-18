@@ -178,5 +178,17 @@ def simulate_cmd(
     console.print(f"\n[bold green]Response:[/bold green]\n{traj.final_response}")
 
 
+@app.command("web")
+def web_cmd(
+    host: str = typer.Option("127.0.0.1", "--host", help="Host address to bind."),
+    port: int = typer.Option(8788, "--port", "-p", help="Port for the Hummerli Web Studio."),
+    data_dir: Optional[Path] = typer.Option(None, "--data-dir", help="Custom data directory."),
+) -> None:
+    """Launches the interactive Hummerli B1 Web Studio (Chat, Voice, SRS Heatmap & Trajectory Eval Inspector)."""
+    from hummerli.webapp import run_web_server
+
+    run_web_server(host=host, port=port, data_dir=data_dir)
+
+
 if __name__ == "__main__":
     app()

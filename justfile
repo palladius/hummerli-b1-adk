@@ -22,3 +22,7 @@ srs profile="riccardo":
 # Generate daily LLM-as-Judge evaluation digest
 digest profile="riccardo":
     PYTHONPATH=src .venv/bin/python -m hummerli.cli digest --profile {{profile}}
+
+# Launch interactive Hummerli B1 Web Studio (Oral Tutor, SRS Heatmap & Trajectory Evals)
+web port="8788":
+    PYTHONPATH=src .venv/bin/python -m hummerli.cli web --port {{port}}
