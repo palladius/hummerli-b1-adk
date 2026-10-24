@@ -180,7 +180,7 @@ def simulate_cmd(
 
 @app.command("web")
 def web_cmd(
-    host: str = typer.Option("127.0.0.1", "--host", help="Host address to bind."),
+    host: str = typer.Option("0.0.0.0", "--host", help="Host address to bind (0.0.0.0 for LAN/Tailscale)."),
     port: int = typer.Option(8788, "--port", "-p", help="Port for the Hummerli Web Studio."),
     data_dir: Optional[Path] = typer.Option(None, "--data-dir", help="Custom data directory."),
 ) -> None:

@@ -23,6 +23,10 @@ srs profile="riccardo":
 digest profile="riccardo":
     PYTHONPATH=src .venv/bin/python -m hummerli.cli digest --profile {{profile}}
 
-# Launch interactive Hummerli B1 Web Studio (Oral Tutor, SRS Heatmap & Trajectory Evals)
+# Launch Hummerli Server on 0.0.0.0:8788 (accessible from Computer + Phone via Wi-Fi / Tailscale)
 web port="8788":
-    PYTHONPATH=src .venv/bin/python -m hummerli.cli web --port {{port}}
+    PYTHONPATH=src .venv/bin/python -m hummerli.cli web --host 0.0.0.0 --port {{port}}
+
+# Open Hummerli as a standalone frameless Desktop App window (Pallino Vocale mode)
+app port="8788":
+    google-chrome --app="http://localhost:{{port}}/?mode=orb" --window-size=460,820 >/dev/null 2>&1 &
