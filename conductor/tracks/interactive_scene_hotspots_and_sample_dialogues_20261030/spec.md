@@ -10,11 +10,12 @@
 
 In *Finnish It!*, one of the most effective B1 exam preparation features is **Visual Situation Learning**: the learner sees an everyday scene (e.g., a park in Zürich with a bench, tree, elderly man walking his dog, lawn) with two primary interactive buttons right below the scene:
 1. **`🏷️ 1. Vocabulary` (Interactive Image Callouts with Arrows)**:
-   - Clicking `1. Vocabulary` animates **SVG callout badges + directional arrows ("freccine")** directly onto the scene image pointing to the objects in the picture (e.g., `🔴 die Parkbank` → bench, `🔵 der Baum` → tree, `🔵 der Rentner` → old man, `🔴 die Wiese` → lawn, `🔵 der Hund` → dog, `🟢 das Geschäft` → dog's business).
+   - Clicking `1. Vocabulary` animates **SVG callout badges + directional arrows ("freccine")** directly onto the scene image pointing to the objects in the picture (e.g., `🌸 die Parkbank` → bench, `🩵 der Baum` → tree, `🩵 der Rentner` → old man, `🌸 die Wiese` → lawn, `🩵 der Hund` → dog, `🩶 das Geschäft` → dog's business).
+   - Gender colors follow the cross-stack Hummerli Gender Palette (**Rosa `#f472b6` for `die` [F]**, **Azzurrino `#38bdf8` for `der` [M]**, **Grigio `#94a3b8` for `das` [N]**) and respect the on-demand gender reveal state (`Ctrl+G` on desktop / multi-tap on mobile from Track 4).
    - Clicking any hotspot label on the image speaks the word aloud (`de-DE` TTS), displays its Italian translation & plural/conjugation form, and lets the user pin/record it in their SM-2 SRS queue.
 2. **`💬 2. Sample Conversation` (Bold/Color-Coded Dialogue + Audio & Live Roleplay)**:
    - Clicking `2. Sample Conversation` opens a natural 4–6 turn B1 dialogue set in that exact scene (e.g., *"Grüezi! Schönes Wetter heute, oder?" — "Ja, herrlich! Kommen Sie oft hierher?" — "Ich komme jeden Morgen mit meinem **Hund** auf diese **Wiese**, damit er sein **Geschäft** machen kann."*).
-   - **Visual Text First (Step 1)**: Displays the German B1 lines alongside their Italian translations, with **all key vocabulary words in bold and color-coded** (`🔵 der`, `🔴 die`, `🟢 das`, `⚡ verb`).
+   - **Visual Text First (Step 1)**: Displays the German B1 lines alongside their Italian translations, with **all key vocabulary words in bold** and gender-colorable via the cross-stack **Rosa (`die` F) / Azzurrino (`der` M) / Grigio (`das` N)** system (`Ctrl+G` / multi-tap).
    - **Interactive Audio & Roleplay (Step 2 — User's Choice)**: Includes two optional action buttons inside the card:
      - `🔊 Ascolta Dialogo (2 Voci)`: plays the dialogue line-by-line alternating two voices (`de-DE` speakers).
      - `🎙️ Provaci tu con Frau Blücher!`: launches the live conversational turn where Frau Blücher plays Speaker A and invites Riccardo to reply as Speaker B using the highlighted words.
@@ -27,7 +28,7 @@ In *Finnish It!*, one of the most effective B1 exam preparation features is **Vi
 - Every visual scenario includes 5–7 `SceneVocabHotspot` items:
   - `lemma`: e.g. `"Parkbank"`
   - `display_headword`: e.g. `"die Parkbank, -bänke"`
-  - `gender`: `"der" | "die" | "das" | "verb"` (drives badge/arrow color: 🔵 Blue, 🔴 Red, 🟢 Green, ⚡ Amber)
+  - `gender`: `"der" | "die" | "das" | "verb"` (drives badge/arrow color when Gender Mode is revealed: 🩵 Azzurrino `#38bdf8` for `der` [M], 🌸 Rosa `#f472b6` for `die` [F], 🩶 Grigio `#94a3b8` for `das` [N], ⚡ Amber `#f59e0b` for `verb`)
   - `translation_it`: e.g. `"panchina del parco"`
   - `label_x`, `label_y`: normalized percentage coordinates `(0..100)` where the floating pill badge sits
   - `target_x`, `target_y`: normalized percentage coordinates `(0..100)` on the image where the SVG arrow tip (`marker-end="url(#arrowhead)"`) points!
