@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any, Optional
 from urllib.parse import parse_qs, urlparse
 
+from hummerli.a2ui import HUMMERLI_A2UI_CATALOG_SCHEMA, build_a2ui_surface_for_turn
 from hummerli.agent import TurnTrajectory, create_hummerli_agent
 from hummerli.eval.judge import BugRouter, JudgeAnalyzer, TurnVerdict, generate_daily_digest
 from hummerli.eval.trajectory import run_all_trajectory_evals
@@ -49,7 +50,8 @@ def call_gemini_live_llm(
         "2. Sprich klares Standard-Hochdeutsch (NIEMALS Englisch!).\n"
         "3. Wenn der Nutzer auf Italienisch fragt oder 'Non ho capito' sagt, antworte zuerst kurz als '[Rijckard 🇮🇹]: ...' auf Italienisch und führe dann als '[Frau Blücher 🐎]: ...' auf Deutsch weiter.\n"
         "4. Wenn Audio mitgeschickt wurde, transkribiere zuerst genau, was der Nutzer gesagt hat.\n"
-        'Antworte AUSSCHLIESSLICH als JSON-Objekt mit den Feldern: {"transcript": "...", "reply": "...", "language": "de" oder "it+de"}.'
+        f"5. A2UI v0.9 GENERATIVE UI CATALOG: Du kannst optional 1-2 passende UI-Widgets aus diesem Katalog in 'a2ui_components' zurückgeben: {json.dumps(HUMMERLI_A2UI_CATALOG_SCHEMA['widgets'], ensure_ascii=False)}\n"
+        'Antworte AUSSCHLIESSLICH als JSON-Objekt mit den Feldern: {"transcript": "...", "reply": "...", "language": "de" oder "it+de", "a2ui_components": [{"type": "...", "props": {...}}]}.'
     )
 
     parts: list[dict[str, Any]] = []
@@ -95,6 +97,7 @@ def call_gemini_live_llm(
                     "transcript": str(parsed.get("transcript") or user_input),
                     "reply": str(parsed["reply"]),
                     "language": str(parsed.get("language") or traj.language),
+                    "a2ui_components": parsed.get("a2ui_components") if isinstance(parsed.get("a2ui_components"), list) else [],
                 }
     except Exception:
         return None
@@ -226,12 +229,21 @@ class HummerliWebBackend:
         )
         self.session_verdicts.setdefault(profile_id, []).append(verdict)
         issues = self.bug_router.build_issues_from_verdict(verdict, is_personal_session=True)
+        updated_state = self.get_state(profile_id=profile_id)
+        llm_comps = llm_override.get("a2ui_components") if isinstance(llm_override, dict) else None
+        a2ui_msgs = build_a2ui_surface_for_turn(
+            traj=traj,
+            due_words=updated_state["due_words"],
+            srs_heatmap=updated_state["profile"]["srs_heatmap"],
+            llm_a2ui_components=llm_comps,
+        )
 
         return {
             "trajectory": traj.model_dump(),
             "verdict": verdict.model_dump(),
             "issues": [iss.model_dump() for iss in issues],
-            "state": self.get_state(profile_id=profile_id),
+            "a2ui_messages": [m.model_dump() for m in a2ui_msgs],
+            "state": updated_state,
         }
 
     def simulate_flawed_turn(self, profile_id: str = "riccardo") -> dict[str, Any]:
@@ -612,6 +624,9 @@ DASHBOARD_HTML = """<!DOCTYPE html>
         <button class="primary" onclick="sendFromOrbInput()">Invia</button>
       </div>
     </div>
+
+    <!-- A2UI v0.9 GENERATIVE UI DYNAMIC SURFACE -->
+    <div id="a2uiOrbSurface" style="width:100%;display:flex;flex-direction:column;gap:10px;margin-top:14px;text-align:left;"></div>
   </section>
 
   <!-- ==================== VIEW 2: STUDIO 3 COLONNE ==================== -->
@@ -963,6 +978,81 @@ DASHBOARD_HTML = """<!DOCTYPE html>
       speakText(traj.final_response, traj.language);
       updateInspector(data);
       renderState(data.state);
+      if (data.a2ui_messages) {
+        renderA2UISurface(data.a2ui_messages);
+      }
+    }
+
+    function renderA2UISurface(messages) {
+      const container = document.getElementById('a2uiOrbSurface');
+      if (!container) return;
+      const updateMsg = messages.find(m => m.action === 'updateComponents');
+      if (!updateMsg || !updateMsg.components) return;
+      container.innerHTML = `<div style="font-size:0.74rem;color:var(--accent);font-weight:600;">✨ Google A2UI v0.9 Generative UI Surface (Catalog: ${updateMsg.catalogId})</div>`;
+
+      updateMsg.components.forEach(comp => {
+        const p = comp.props || {};
+        const card = document.createElement('div');
+        card.style.cssText = 'background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:0.86rem;';
+
+        if (comp.type === 'GrammarDiffCard') {
+          card.style.borderLeft = '4px solid #22c55e';
+          card.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <strong>📝 A2UI · GrammarDiffCard & Native Rewrite</strong>
+              <span class="badge">${p.cefr_score || 'B1'}</span>
+            </div>
+            <div style="color:var(--muted);font-size:0.8rem;">🗣️ Tua frase: <em>"${p.user_sentence || ''}"</em></div>
+            <div style="color:#4ade80;margin-top:4px;">🇩🇪 <strong>B1 Native:</strong> "${p.native_b1_rewrite || ''}"</div>
+            <div style="margin-top:6px;font-size:0.8rem;color:#cbd5e1;">💡 🇮🇹 ${p.grammar_rule_it || ''}</div>
+          `;
+        } else if (comp.type === 'VocabFlashcard') {
+          const genderColors = { der: '#38bdf8', die: '#ef4444', das: '#22c55e', verb: '#eab308' };
+          const col = genderColors[p.gender] || '#38bdf8';
+          card.style.borderLeft = `4px solid ${col}`;
+          card.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong style="color:${col};font-size:1rem;">🗂️ ${p.headword || ''}</strong>
+              <span class="badge">SRS: ${p.status || 'new'} (${p.interval_days || 0}d)</span>
+            </div>
+            <div style="margin-top:4px;">🇮🇹 ${p.translation_it || ''}</div>
+            <div style="margin-top:4px;color:var(--muted);font-style:italic;">🇩🇪 "${p.example_de || ''}"</div>
+          `;
+        } else if (comp.type === 'MultipleChoiceQuiz') {
+          card.style.borderLeft = '4px solid #eab308';
+          const optsHtml = (p.options || []).map((opt, idx) => `
+            <button style="display:block;width:100%;text-align:left;margin-top:6px;background:#070b14;"
+              onclick="this.style.borderColor='${idx === p.correct_index ? '#22c55e' : '#ef4444'}';this.innerHTML+=' ${idx === p.correct_index ? '✅ Corretto!' : '❌ Riprova'}'">
+              ${idx + 1}. ${opt}
+            </button>
+          `).join('');
+          card.innerHTML = `
+            <div><strong>🎯 A2UI · Was sagt man? (Tocca la risposta giusta)</strong></div>
+            <div style="margin-top:4px;">${p.question_de || ''}</div>
+            ${optsHtml}
+          `;
+        } else if (comp.type === 'FideReadinessGauge') {
+          card.style.borderLeft = '4px solid #38bdf8';
+          card.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong>📊 Outcome Score FIDE Zürich (Stile "Finnish It!")</strong>
+              <span class="badge">${p.estimated_level || 'B1-'}</span>
+            </div>
+            <div style="margin-top:8px;font-size:0.78rem;">Sprechen B1: <strong>${p.sprechen_pct || 70}%</strong> · Wortschatz Goethe B1: <strong>${p.wortschatz_pct || 50}%</strong></div>
+            <div style="background:#070b14;height:8px;border-radius:99px;margin-top:4px;overflow:hidden;">
+              <div style="background:linear-gradient(90deg,#0284c7,#22c55e);width:${p.sprechen_pct || 70}%;height:100%;"></div>
+            </div>
+            <div style="margin-top:6px;font-size:0.78rem;color:var(--muted);">${p.next_milestone_it || ''}</div>
+          `;
+        } else if (comp.type === 'ScenarioRoleplayCard') {
+          card.style.borderLeft = '4px solid #a855f7';
+          card.innerHTML = `
+            <div><strong>${p.title || '🏛️ Roleplay B1'}</strong></div>
+            <div style="margin-top:4px;color:#cbd5e1;">${p.situation_de || ''}</div>
+          `;
+        }
+        container.appendChild(card);
+      });
     }
 
     async function triggerFlawedTurn() {
