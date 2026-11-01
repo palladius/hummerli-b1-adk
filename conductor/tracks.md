@@ -19,3 +19,8 @@
 
 - [ ] **Track: Cross-Stack German Noun Gender X-Ray (Rosa / Azzurrino / Grigio, On-Demand Reveal)**
   *Link: [./tracks/noun_gender_xray_across_stack_20261030/index.md](./tracks/noun_gender_xray_across_stack_20261030/index.md)*
+
+---
+
+- [ ] **Track: Oktoberfest "Karaoke B2" (Pre-Computed CEFR Color-Coding) & Cross-App Duolingo Silent/No-Mic "Piano B"**
+  *Link: [./tracks/oktoberfest_karaoke_b2_and_silent_mode_20261101/index.md](./tracks/oktoberfest_karaoke_b2_and_silent_mode_20261101/index.md)*
