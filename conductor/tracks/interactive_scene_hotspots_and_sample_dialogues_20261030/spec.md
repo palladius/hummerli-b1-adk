@@ -53,7 +53,11 @@ In *Finnish It!*, one of the most effective B1 exam preparation features is **Vi
   2. **Listen (`🔊 Ascolta`)** to the dialogue spoken aloud turn-by-turn,
   3. **Start Live Roleplay (`🎙️ Parla nella Scena`)** with Frau Blücher, where the ADK agent greets the user with the first line of the scene and tracks which scene vocabulary words the user actively uses.
 
-### FR-4: ADK Tooling & Trajectory Evaluations ("Evals Along the Way")
+### FR-4: Adaptive Modality ("Piano B" Stile Duolingo: No-Audio / No-Mic)
+- **🔇 `"Non posso ascoltare ora"` (Silent Mode)**: Clicking a hotspot on `1. Vocabulary` or reading `2. Sample Conversation` suppresses `de-DE` TTS audio and instead highlights phonetic stress + visual translation cards so the user can study silently (e.g., at work or late at night).
+- **🙊 `"Non posso parlare ora"` (No-Mic Mode)**: Clicking `Provaci tu con Frau Blücher!` switches the roleplay turn to written/chip-assisted dialogue completion instead of requiring microphone input.
+
+### FR-5: ADK Tooling & Trajectory Evaluations ("Evals Along the Way")
 - New ADK tool on `HummerliToolset`:
   - `get_scene_vocabulary_and_dialogue(profile_id: str, scenario_id: str) -> dict` returning both the `hotspots` (with arrow coordinates) and `sample_conversation` (with highlighted B1 words).
 - New A2UI v0.9 widget `InteractiveSceneExplorerCard` supporting the two mode buttons (`1. Vocabulary` and `2. Sample Conversation`).

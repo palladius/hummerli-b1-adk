@@ -24,6 +24,10 @@ I profili familiari (`ale` per Alessandro P3, `sebi` per Sebastian P1) sono prev
 ## Funzionalità Core
 
 - **Barge-In Engine**: Interrompere Frau Blücher mid-sentence con VAD — nessun turn-taking artificioso.
+- **Adaptive Modality ("Piano B" Stile Duolingo — Permea TUTTE le Spec)**:
+  - L'utente può trovarsi in treno, in ufficio o a letto accanto alla moglie che dorme (`pupurabbux`). In ogni schermata sono sempre presenti due toggle globali istantanei:
+    1. **🔇 `"Non posso ascoltare ora"` (No-Audio / Silent Mode)**: Disattiva TTS e audio musicale, trasformando automaticamente gli esercizi di ascolto/karaoke in sfide visive (sottotitoli sincronizzati con beat visivo, lettura di dialoghi, fill-in-the-blank scritto o scelta multipla).
+    2. **🙊 `"Non posso parlare ora"` (No-Mic / Quiet Zone Mode)**: Disattiva il microfono e trasforma gli esercizi vocali in sfide tattili/scritte (tastiera con chip rapidi, completamento cloze della parola mancante, traduzione a scelta multipla tra 4–5 sinonimi/distrattori) senza perdere il progresso SRS.
 - **Goethe B1 SRS Engine**: SM-2/Leitner su ~1,000–1,500 lemmata. Parole indovinate → intervallo crescente (7, 15, 30, 90 giorni). Parole difficili → rinforzo frequente. L'agente integra organicamente 1–3 lemmata target per sessione in conversazione naturalistica.
 - **Cloud Audio Vault**: 100% degli audio (utente + tutor) archiviati in GCS (`gs://hummerli-audio-vault/{user}/{session_id}/`).
 - **Multi-Judge Asincrono**: Valutazione decoupled dalla conversazione live — Flash (real-time), Pro (shadow), benchmark esterno. Replay CLI per rivalutare sessioni storiche.

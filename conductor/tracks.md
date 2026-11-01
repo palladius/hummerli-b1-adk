@@ -14,3 +14,8 @@
 
 - [ ] **Track: Interactive Scene Vocabulary Hotspots (SVG Arrows) & Color-Coded Sample Conversations**
   *Link: [./tracks/interactive_scene_hotspots_and_sample_dialogues_20261030/index.md](./tracks/interactive_scene_hotspots_and_sample_dialogues_20261030/index.md)*
+
+---
+
+- [ ] **Track: Cross-Stack German Noun Gender X-Ray (Rosa / Azzurrino / Grigio, On-Demand Reveal)**
+  *Link: [./tracks/noun_gender_xray_across_stack_20261030/index.md](./tracks/noun_gender_xray_across_stack_20261030/index.md)*

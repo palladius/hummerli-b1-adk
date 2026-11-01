@@ -59,8 +59,11 @@ Inspired by the best "outcome-based" mechanics of *Finnish It! / Finish it*, thi
 
 ---
 
-## 3. Non-Functional Requirements
+## 3. Non-Functional Requirements & Adaptive Modality ("Piano B" Stile Duolingo)
 - **Zero Extra Clicks to Start**: Opening the app immediately selects the #1 Entropic Scenario (with 2 alternative cards selectable in 1 tap).
+- **Adaptive Modality Fallbacks ("🔇 Non posso ascoltare" / "🙊 Non posso parlare")**:
+  - When **🙊 No-Mic Mode** is active, the user can answer the scenario's oral prompts via written input or quick-reply sentence builders, and still receive the full `FideExamOutcomeCard` (evaluating Wortschatz, Grammatik, and Erfüllung der Aufgabe).
+  - When **🔇 Silent Mode** is active, Frau Blücher's responses are displayed with expressive visual cues and subtitles without playing TTS audio.
 - **Offline & Deterministic Testability**: All unit and trajectory eval tests (`pytest`) run in <1s without requiring live network calls.
 - **Privacy Hygiene**: Generated scenario cache (`data/scenarios_cache/`) stays local/gitignored.
 
