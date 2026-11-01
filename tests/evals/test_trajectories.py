@@ -10,13 +10,13 @@ TRAJECTORIES_DIR = Path(__file__).parent / "trajectories"
 
 
 def test_all_adk_trajectory_fixtures_pass(tmp_path: Path):
-    """Runs all 4 ADK .test.json trajectory suites and asserts 100% tool trajectory accuracy."""
+    """Runs all 8 ADK .test.json trajectory suites (Tracks 1-5) and asserts 100% tool trajectory accuracy."""
     summary = run_all_trajectory_evals(
         trajectories_dir=TRAJECTORIES_DIR,
         data_dir=tmp_path,
     )
-    assert summary["status"] == "SUCCESS"
-    assert summary["total_suites"] == 4
+    assert summary["status"] == "SUCCESS", f"Failed suites: {summary}"
+    assert summary["total_suites"] == 8
     assert summary["overall_tool_trajectory_score"] == 1.0
     assert summary["overall_keyword_score"] == 1.0
 
@@ -25,6 +25,10 @@ def test_all_adk_trajectory_fixtures_pass(tmp_path: Path):
         "word_mastery_abholen",
         "coach_handoff_non_ho_capito",
         "struggling_word_retry",
+        "director_override_indian_restaurant",
+        "scene_vocab_and_sample_convo",
+        "noun_gender_xray",
+        "karaoke_b2_and_silent_mode",
     ]:
         suite_res = summary["suites"][suite_id]
         assert suite_res["passed"] is True, f"Suite {suite_id} failed: {suite_res}"

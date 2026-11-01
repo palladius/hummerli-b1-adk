@@ -1,0 +1,24 @@
+{
+  "eval_set_id": "scene_vocab_and_sample_convo",
+  "description": "Track 3: Verifies that when the learner requests Scene Vocabulary & Sample Conversation for the Zürich Park scene, the agent calls get_scene_vocabulary_and_dialogue and presents the park hotspots and dog-walking dialogue.",
+  "profile_id": "riccardo",
+  "turns": [
+    {
+      "turn_id": "turn_1_explore_park_scene",
+      "is_session_start": false,
+      "query": "Zeig mir bitte Vocabulary und Sample Conversation für die Szene im Park mit dem Hund!",
+      "expected_tool_use": [
+        {
+          "tool_name": "get_scene_vocabulary_and_dialogue",
+          "tool_args": {
+            "profile_id": "riccardo",
+            "scenario_id": "zuerich_park_hund"
+          }
+        }
+      ],
+      "expected_persona": "Frau Leonie Blücher",
+      "expected_language": "de",
+      "reference_keywords": ["Parkbank", "Wiese", "Hund", "Geschäft"]
+    }
+  ]
+}

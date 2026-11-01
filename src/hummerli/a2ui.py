@@ -1,4 +1,4 @@
-"""Google A2UI v0.9 (Agent-to-UI) Protocol & Pedagogical Widget Catalog for Hummerli B1."""
+"""Google A2UI v0.9 (Agent-to-UI) Protocol & Pedagogical Widget Catalog for Hummerli B1 (Tracks 1–5)."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ from typing import Any, Literal, Optional
 from pydantic import BaseModel, Field
 
 from hummerli.agent import TurnTrajectory
+from hummerli.gender import GENDER_PALETTE
 
 
 A2UIActionType = Literal[
@@ -21,6 +22,11 @@ WidgetType = Literal[
     "MultipleChoiceQuiz",
     "FideReadinessGauge",
     "ScenarioRoleplayCard",
+    "VisualScenarioCard",
+    "FideExamOutcomeCard",
+    "InteractiveSceneExplorerCard",
+    "NounGenderXRayCard",
+    "KaraokeB2StageCard",
 ]
 
 
@@ -58,10 +64,11 @@ HUMMERLI_A2UI_CATALOG_SCHEMA: dict[str, Any] = {
             },
         },
         "VocabFlashcard": {
-            "description": "Renders a color-coded German vocabulary card (🔵 der, 🔴 die, 🟢 das, ⚡ verb) with Italian translation, example sentence, and SM-2 interval.",
+            "description": "Renders a German vocabulary card with Cross-Stack Gender X-Ray (🌸 Rosa #f472b6 for die/F, 🩵 Azzurrino #38bdf8 for der/M, 🩶 Grigio #94a3b8 for das/N).",
             "props": {
                 "headword": "string (e.g. 'der Antrag')",
                 "gender": "string ('der' | 'die' | 'das' | 'verb')",
+                "gender_color_hex": "string ('#f472b6' | '#38bdf8' | '#94a3b8' | '#f59e0b')",
                 "translation_it": "string",
                 "example_de": "string",
                 "interval_days": "integer",
@@ -94,6 +101,64 @@ HUMMERLI_A2UI_CATALOG_SCHEMA: dict[str, Any] = {
                 "target_words": "list of strings",
             },
         },
+        "VisualScenarioCard": {
+            "description": "Track 2: Renders the Entropic Visual Scenario with 1:1 (mobile) or 16:9 (desktop) illustration, interlocutor mood, test questions, and Italian Director ('Regia in Italiano') override.",
+            "props": {
+                "scenario_id": "string",
+                "title_de": "string",
+                "interlocutor_mood_de": "string",
+                "aspect_ratio": "string ('1:1' | '16:9')",
+                "image_data_url": "string",
+                "target_words": "list of strings",
+                "test_questions_de": "list of strings",
+                "director_notes_it": "string",
+            },
+        },
+        "FideExamOutcomeCard": {
+            "description": "Track 2: Outcome-based FIDE B1 oral rubric card showing the 4 FIDE dimensions, level badge ('B1 Pass ✅'), and Native B1 Rewrite.",
+            "props": {
+                "fide_level": "string",
+                "overall_pct": "integer",
+                "aufgabenerfuellung_pct": "integer",
+                "fluessigkeit_pct": "integer",
+                "wortschatz_pct": "integer",
+                "strukturen_pct": "integer",
+                "native_b1_rewrite": "string",
+                "rewrite_annotated_html": "string",
+                "next_step_advice_it": "string",
+            },
+        },
+        "InteractiveSceneExplorerCard": {
+            "description": "Track 3: Renders a visual situation with 2 interactive buttons: '1. Vocabulary' (SVG arrows pointing to objects on the image) and '2. Sample Conversation' (bold Rosa/Azzurrino/Grigio nouns + TTS + Roleplay).",
+            "props": {
+                "scenario_id": "string",
+                "title_de": "string",
+                "image_data_url": "string",
+                "hotspots": "list of SceneVocabHotspot objects",
+                "sample_conversation": "SampleConversation object",
+            },
+        },
+        "NounGenderXRayCard": {
+            "description": "Track 4: Displays resolved German nouns in Rosa (#f472b6 die/F), Azzurrino (#38bdf8 der/M), and Grigio (#94a3b8 das/N) with on-demand Ctrl+G / Double-Tap reveal.",
+            "props": {
+                "annotated_html": "string",
+                "nouns": "list of NounGenderAnnotation objects",
+                "palette": "GENDER_PALETTE dict",
+            },
+        },
+        "KaraokeB2StageCard": {
+            "description": "Track 5: Oktoberfest Karaoke B2 stage with Green (A1-A2), Blue (B1), Red (B2) lyrics, Mode 1 Cloze Gap, Mode 2 5-Choice Translation, and Duolingo Silent/No-Mic 'Piano B'.",
+            "props": {
+                "song_id": "string",
+                "title": "string",
+                "artist": "string",
+                "mode": "string ('stop_and_fill' | 'flow_and_translate')",
+                "audio_strategy": "string",
+                "input_strategy": "string",
+                "modality_banner_it": "string",
+                "lines": "list of KaraokeLine objects",
+            },
+        },
     },
 }
 
@@ -104,13 +169,9 @@ def build_a2ui_surface_for_turn(
     srs_heatmap: dict[str, int],
     llm_a2ui_components: Optional[list[dict[str, Any]]] = None,
 ) -> list[A2UIMessage]:
-    """Composes an A2UI v0.9 message stream (`createSurface` + `updateComponents`) for the current turn.
-
-    Combines any LLM-chosen A2UI widgets with deterministic pedagogical widgets derived from the ADK tool trajectory.
-    """
+    """Composes an A2UI v0.9 message stream (`createSurface` + `updateComponents`) for the current turn."""
     components: list[A2UIComponent] = []
 
-    # 1. Include valid widgets directly proposed by Gemini via A2UI v0.9 prompt-first JSON
     valid_types = set(HUMMERLI_A2UI_CATALOG_SCHEMA["widgets"].keys())
     if llm_a2ui_components:
         for idx, raw_comp in enumerate(llm_a2ui_components):
@@ -126,7 +187,64 @@ def build_a2ui_surface_for_turn(
 
     called_tools = {tc.tool_name: tc for tc in traj.tool_calls}
 
-    # 2. If session started (`get_due_words` + `get_profile_context`), compose a ScenarioRoleplayCard + FideReadinessGauge
+    # Track 5: Karaoke B2 Stage Card
+    if "start_karaoke_session" in called_tools:
+        out = called_tools["start_karaoke_session"].tool_output or {}
+        components.append(
+            A2UIComponent(
+                id=f"karaoke_{out.get('song_id', 'fliegerlied')}",
+                type="KaraokeB2StageCard",
+                props=out,
+            )
+        )
+
+    # Track 4: Noun Gender X-Ray Card
+    if "analyze_german_nouns_gender" in called_tools:
+        out = called_tools["analyze_german_nouns_gender"].tool_output or {}
+        components.append(
+            A2UIComponent(
+                id="gender_xray",
+                type="NounGenderXRayCard",
+                props=out,
+            )
+        )
+
+    # Track 2: Director Mutated Visual Scenario Card
+    if "mutate_scenario_with_director_notes" in called_tools:
+        out = called_tools["mutate_scenario_with_director_notes"].tool_output or {}
+        components.append(
+            A2UIComponent(
+                id=f"visual_scene_{out.get('scenario_id', 'custom')}",
+                type="VisualScenarioCard",
+                props=out,
+            )
+        )
+        components.append(
+            A2UIComponent(
+                id=f"explorer_{out.get('scenario_id', 'custom')}",
+                type="InteractiveSceneExplorerCard",
+                props={
+                    "scenario_id": out.get("scenario_id", "custom"),
+                    "title_de": out.get("title_de", ""),
+                    "image_data_url": out.get("image_data_url", ""),
+                    "hotspots": out.get("hotspots", []),
+                    "sample_conversation": out.get("sample_conversation", {}),
+                },
+            )
+        )
+
+    # Track 3: Interactive Scene Explorer Card (1. Vocabulary SVG Arrows + 2. Sample Conversation)
+    if "get_scene_vocabulary_and_dialogue" in called_tools:
+        out = called_tools["get_scene_vocabulary_and_dialogue"].tool_output or {}
+        components.append(
+            A2UIComponent(
+                id=f"explorer_{out.get('scenario_id', 'zuerich_park_hund')}",
+                type="InteractiveSceneExplorerCard",
+                props=out,
+            )
+        )
+
+    # Session start: ScenarioRoleplayCard
     if "get_profile_context" in called_tools and not any(
         c.type == "ScenarioRoleplayCard" for c in components
     ):
@@ -142,12 +260,11 @@ def build_a2ui_surface_for_turn(
             )
         )
 
-    # 3. If Rijckard Coach intervened (`explain_in_italian`), compose a VocabFlashcard + MultipleChoiceQuiz
+    # Rijckard Coach intervention: VocabFlashcard (with Rosa/Azzurrino/Grigio) + MultipleChoiceQuiz
     if "explain_in_italian" in called_tools:
         tc = called_tools["explain_in_italian"]
         concept = tc.tool_args.get("concept_or_phrase", "Antrag")
         out = tc.tool_output or {}
-        headword = concept
         gender = "verb"
         for prefix in ("der ", "die ", "das "):
             if str(out.get("explanation_it", "")).lower().find(prefix) != -1:
@@ -155,6 +272,12 @@ def build_a2ui_surface_for_turn(
         if concept and concept[0].isupper() and gender == "verb":
             gender = "die" if concept.endswith("e") or concept.endswith("ung") else "der"
 
+        color_map = {
+            "die": GENDER_PALETTE["F"]["color_hex"],
+            "der": GENDER_PALETTE["M"]["color_hex"],
+            "das": GENDER_PALETTE["N"]["color_hex"],
+            "verb": "#f59e0b",
+        }
         components.append(
             A2UIComponent(
                 id=f"flashcard_{concept.lower()}",
@@ -162,6 +285,7 @@ def build_a2ui_surface_for_turn(
                 props={
                     "headword": f"{gender} {concept}" if gender in {"der", "die", "das"} else concept,
                     "gender": gender,
+                    "gender_color_hex": color_map.get(gender, "#f59e0b"),
                     "translation_it": out.get("explanation_it", ""),
                     "example_de": out.get("example_de", f"Können Sie '{concept}' in einem Satz benutzen?"),
                     "interval_days": 0,
@@ -187,13 +311,14 @@ def build_a2ui_surface_for_turn(
                 )
             )
 
-    # 4. If `record_word_attempt` was called on a user sentence, compose GrammarDiffCard + VocabFlashcard
+    # Active word attempt: GrammarDiffCard + FideExamOutcomeCard (Track 2)
     if "record_word_attempt" in called_tools and "explain_in_italian" not in called_tools:
         tc = called_tools["record_word_attempt"]
         args = tc.tool_args
         out = tc.tool_output or {}
         lemma = args.get("lemma", "abholen")
         quality = int(args.get("quality", 5))
+        fide_out = out.get("fide_outcome") or {}
         if not any(c.type == "GrammarDiffCard" for c in components):
             components.append(
                 A2UIComponent(
@@ -201,19 +326,33 @@ def build_a2ui_surface_for_turn(
                     type="GrammarDiffCard",
                     props={
                         "user_sentence": traj.user_input,
-                        "native_b1_rewrite": traj.user_input
-                        if quality >= 5
-                        else f"Ich möchte heute {lemma} auf der Gemeinde erledigen.",
+                        "native_b1_rewrite": fide_out.get(
+                            "native_b1_rewrite",
+                            traj.user_input
+                            if quality >= 5
+                            else f"Ich möchte heute {lemma} auf der Gemeinde erledigen.",
+                        ),
                         "grammar_rule_it": args.get(
                             "tutor_comment",
                             f"Ottimo uso attivo di '{lemma}' in struttura B1!",
                         ),
-                        "cefr_score": "B1 ✅ (FIDE Ready)" if quality >= 4 else "A2+ (Rinforzare)",
+                        "cefr_score": fide_out.get(
+                            "fide_level",
+                            "B1 ✅ (FIDE Ready)" if quality >= 4 else "A2+ (Rinforzare)",
+                        ),
                     },
                 )
             )
+        if fide_out and not any(c.type == "FideExamOutcomeCard" for c in components):
+            components.append(
+                A2UIComponent(
+                    id=f"fide_outcome_{lemma.lower()}",
+                    type="FideExamOutcomeCard",
+                    props=fide_out,
+                )
+            )
 
-    # 5. Always append FideReadinessGauge (Outcome-Based bar like "Finnish It!")
+    # Always append FideReadinessGauge
     total = max(1, srs_heatmap.get("total_curriculum", 26))
     practiced = srs_heatmap.get("mastered_green", 0) + srs_heatmap.get("learning_yellow", 0)
     wortschatz_pct = min(100, int(round((practiced / total) * 100)) + 45)

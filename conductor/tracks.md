@@ -7,20 +7,20 @@
 
 ---
 
-- [ ] **Track: AI Entropic Visual Scenarios (Zero-Click + Italian Director Override) & Outcome-Based FIDE B1 Exam Rubric**
+- [x] **Track: AI Entropic Visual Scenarios (Zero-Click + Italian Director Override) & Outcome-Based FIDE B1 Exam Rubric**
   *Link: [./tracks/entropic_scenarios_and_fide_outcome_20261030/index.md](./tracks/entropic_scenarios_and_fide_outcome_20261030/index.md)*
 
 ---
 
-- [ ] **Track: Interactive Scene Vocabulary Hotspots (SVG Arrows) & Color-Coded Sample Conversations**
+- [x] **Track: Interactive Scene Vocabulary Hotspots (SVG Arrows) & Color-Coded Sample Conversations**
   *Link: [./tracks/interactive_scene_hotspots_and_sample_dialogues_20261030/index.md](./tracks/interactive_scene_hotspots_and_sample_dialogues_20261030/index.md)*
 
 ---
 
-- [ ] **Track: Cross-Stack German Noun Gender X-Ray (Rosa / Azzurrino / Grigio, On-Demand Reveal)**
+- [x] **Track: Cross-Stack German Noun Gender X-Ray (Rosa / Azzurrino / Grigio, On-Demand Reveal)**
   *Link: [./tracks/noun_gender_xray_across_stack_20261030/index.md](./tracks/noun_gender_xray_across_stack_20261030/index.md)*
 
 ---
 
-- [ ] **Track: Oktoberfest "Karaoke B2" (Pre-Computed CEFR Color-Coding) & Cross-App Duolingo Silent/No-Mic "Piano B"**
+- [x] **Track: Oktoberfest "Karaoke B2" (Pre-Computed CEFR Color-Coding) & Cross-App Duolingo Silent/No-Mic "Piano B"**
   *Link: [./tracks/oktoberfest_karaoke_b2_and_silent_mode_20261101/index.md](./tracks/oktoberfest_karaoke_b2_and_silent_mode_20261101/index.md)*

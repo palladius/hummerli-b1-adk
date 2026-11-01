@@ -1,0 +1,35 @@
+{
+  "eval_set_id": "karaoke_b2_and_silent_mode",
+  "description": "Track 5: Verifies that when the learner starts Oktoberfest Karaoke B2 in a quiet zone ('non posso ascoltare'), the agent calls set_modality_preferences and start_karaoke_session.",
+  "profile_id": "riccardo",
+  "turns": [
+    {
+      "turn_id": "turn_1_karaoke_silent",
+      "is_session_start": false,
+      "query": "Karaoke Wahnsinn ma sono in zona silenziosa: non posso ascoltare e non posso parlare",
+      "expected_tool_use": [
+        {
+          "tool_name": "set_modality_preferences",
+          "tool_args": {
+            "profile_id": "riccardo",
+            "can_listen": false,
+            "can_speak": false
+          }
+        },
+        {
+          "tool_name": "start_karaoke_session",
+          "tool_args": {
+            "profile_id": "riccardo",
+            "song_id": "wahnsinn",
+            "mode": "stop_and_fill",
+            "can_listen": false,
+            "can_speak": false
+          }
+        }
+      ],
+      "expected_persona": "Rijckard + Frau Leonie Blücher",
+      "expected_language": "it+de",
+      "reference_keywords": ["Wahnsinn", "Hölle", "Piano B"]
+    }
+  ]
+}

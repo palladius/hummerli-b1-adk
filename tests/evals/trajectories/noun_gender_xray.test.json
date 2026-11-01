@@ -1,0 +1,23 @@
+{
+  "eval_set_id": "noun_gender_xray",
+  "description": "Track 4: Verifies that when the learner asks for the grammatical gender (Rosa/Azzurrino/Grigio) of German nouns, the agent invokes analyze_german_nouns_gender.",
+  "profile_id": "riccardo",
+  "turns": [
+    {
+      "turn_id": "turn_1_gender_xray",
+      "is_session_start": false,
+      "query": "Che genere hanno Parkbank, Hund e Geschäft?",
+      "expected_tool_use": [
+        {
+          "tool_name": "analyze_german_nouns_gender",
+          "tool_args": {
+            "text_de": "Che genere hanno Parkbank, Hund e Geschäft?"
+          }
+        }
+      ],
+      "expected_persona": "Rijckard + Frau Leonie Blücher",
+      "expected_language": "it+de",
+      "reference_keywords": ["rosa", "azzurrino", "grigio", "Parkbank", "Hund", "Geschäft"]
+    }
+  ]
+}

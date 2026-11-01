@@ -1,0 +1,25 @@
+{
+  "eval_set_id": "director_override_indian_restaurant",
+  "description": "Track 2: Verifies that when Riccardo gives Italian Director Notes ('Si ma voglio ristorante indiano, invece di italiano e la tizia e' molto maleducata con me'), the agent calls mutate_scenario_with_director_notes while preserving SRS target words.",
+  "profile_id": "riccardo",
+  "turns": [
+    {
+      "turn_id": "turn_1_director_override",
+      "is_session_start": false,
+      "query": "Si ma voglio ristorante indiano, invece di italiano e la tizia e' molto maleducata con me.",
+      "expected_tool_use": [
+        {
+          "tool_name": "mutate_scenario_with_director_notes",
+          "tool_args": {
+            "profile_id": "riccardo",
+            "current_scenario_id": "zuerich_park_hund",
+            "director_feedback_it": "Si ma voglio ristorante indiano, invece di italiano e la tizia e' molto maleducata con me."
+          }
+        }
+      ],
+      "expected_persona": "Rijckard + Frau Leonie Blücher",
+      "expected_language": "it+de",
+      "reference_keywords": ["Indisches Restaurant", "Kellnerin", "Speisekarte"]
+    }
+  ]
+}

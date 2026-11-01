@@ -1,7 +1,7 @@
 # Track: Cross-Stack German Noun Gender X-Ray (Rosa / Azzurrino / Grigio, On-Demand Reveal)
 
 **ID:** `noun_gender_xray_across_stack_20261030`
-**Status:** Pending
+**Status:** Completed
 
 ## Documents
 - [Specification](./spec.md)
@@ -9,8 +9,8 @@
 - [Metadata](./metadata.json)
 
 ## Progress
-- Phases: 0/3 complete
-- Tasks: 0/9 complete
+- Phases: 3/3 complete
+- Tasks: 9/9 complete
 
 ## Quick Links
 - [Back to Tracks](../../tracks.md)

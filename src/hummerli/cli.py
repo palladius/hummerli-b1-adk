@@ -30,6 +30,12 @@ DEFAULT_EVAL_RESULTS_DIR = REPO_ROOT / "data" / "eval_results"
 def srs_cmd(
     profile: str = typer.Option("riccardo", "--profile", "-p", help="Learner profile ID."),
     limit: int = typer.Option(5, "--limit", "-n", help="Number of due words to preview."),
+    gender_colors: bool = typer.Option(
+        False,
+        "--gender-colors/--no-gender-colors",
+        "-g",
+        help="Track 4: On-demand gender colors (Rosa=die/F, Azzurrino=der/M, Grigio=das/N).",
+    ),
     data_dir: Optional[Path] = typer.Option(None, "--data-dir", help="Custom data directory."),
 ) -> None:
     """Displays the learner's SRS mastery heatmap summary and top due B1 words."""
@@ -57,9 +63,14 @@ def srs_cmd(
     table.add_column("Status")
     table.add_column("Interval (d)")
     table.add_column("Italian")
+    rich_gender = {"F": "bright_magenta", "M": "bright_cyan", "N": "grey70"}
     for w in due:
+        hw = w["display_headword"]
+        if gender_colors and w.get("gender_code") in rich_gender:
+            st = rich_gender[w["gender_code"]]
+            hw = f"[{st}]{hw}[/{st}]"
         table.add_row(
-            w["display_headword"],
+            hw,
             w["pos"],
             w["srs_status"],
             str(w["interval_days"]),
