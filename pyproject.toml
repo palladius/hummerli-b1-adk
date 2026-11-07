@@ -36,6 +36,7 @@ hummerli = "hummerli.cli:app"
 pythonpath = ["src"]
 testpaths = ["tests"]
 addopts = "-v"
+asyncio_default_fixture_loop_scope = "function"
 markers = [
     "live_eval: marks tests that call live Gemini / ADK APIs (deselect with '-m \"not live_eval\"')",
 ]

@@ -381,7 +381,7 @@ class GenderResolver:
         for curr_name in ("goethe_b1", "tandem_p3", "tandem_p1"):
             try:
                 entries = self.curriculum_repo.load_curriculum(curr_name)
-            except Exception:
+            except (FileNotFoundError, ValueError, OSError):
                 continue
             for entry in entries:
                 if entry.pos == "noun" and entry.article in ARTICLE_TO_GENDER:

@@ -904,7 +904,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
           <div class="due-list" id="orbDueWords"></div>
         </div>
 
-        <button class="mic-orb" id="micOrbBtn" onclick="toggleOrbTap()">🎙️</button>
+        <button class="mic-orb" id="micOrbBtn" aria-label="Parla con Frau Blücher o interrompi (Barge-In)" onclick="toggleOrbTap()">🎙️</button>
         <div class="orb-status" id="orbStatusText" style="font-weight:600;color:var(--accent);">Tocca il Pallino per parlare con Frau Blücher</div>
         <div class="orb-substatus" id="orbSubStatusText" style="font-size:0.8rem;color:var(--muted);text-align:center;">
           Parla in Tedesco B1 o chiedi aiuto in Italiano ("Non ho capito...")
